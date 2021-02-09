@@ -1,25 +1,43 @@
-import logo from './logo.svg';
+import React from 'react'
+import { ApolloProvider } from 'react-apollo';
+import ApolloClient from 'apollo-boost';
+import Continents from './Continents';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+//const axios = require("axios")
+const client = new ApolloClient({
+  uri: 'https://countries.trevorblades.com',
+});
+
+/*axios({
+  url: 'https://countries.trevorblades.com',
+  method: 'POST',
+  data: {
+    query: `
+    {
+      continents {
+        code
+        name
+        countries{
+          name
+          capital
+        }
+      }
+    }
+      `
+  }
+}).then((result) => {
+  console.log(result.data)
+});
+*/
+
+const App = () => (
+  <ApolloProvider client={client}>
+    <Continents></Continents>
+  </ApolloProvider>
+  )
 
 export default App;
+
+
+//https://m.heise.de/developer/artikel/GraphQL-Clients-mit-React-und-Apollo-Teil-2-4273017.html?seite=all
